@@ -1,31 +1,6 @@
 const { generateJWT, validateJWT } = require("../utils/jwt.utils");
 const { hashPassword, comparePassword } = require("../utils/password.utils");
 const User = require("../models/user.model");
-const { exist } = require("joi");
-const { error } = require("../dtos/mongoId.dto");
-
-
-exports.existUser= async(_id)=>{
-  try {
-    const isExists = await User.findOne( {_id});
-    const exist=!!isExists
-      return {
-    error: false, 
-    exist:exist ,
-    message:`l'utilisateur ${exist? " existe":" n'existe pas"}`,
-    statusCode: 400,
-  };
-  }
-  catch (error) {
-     return {
-   error: true,
-    exist:false,
-   message: error,
-   statusCode: 400,
- };
-    
-  }
-}
 exports.SignUp = async (data) => {
   try {
     const {first_name,last_name,email, password,adress } = data;
@@ -134,68 +109,5 @@ exports.refreshTocken=async(data)=>{
     }
  }
   
-}
-exports.getUser= async(data)=>{
-   try {
-     const { email, id } = data;
-     const user= await User.findOne({$or:[{email:email},{id:id}]});
-     
-    if (!user) {
-      return {
-        error: true,
-        message: "adresse mail ou id invalide",
-        statusCode: 401,
-      };
-    }
-
-    return {
-      error:false,
-      data:user,
-      statusCode:200
-    }
-     
-   } catch (error) {
-
-    return {
-      error:true,
-      message:error.message,
-      statusCode:400
-    }
-     
-   }
-}
-
-exports.UpdateUser= async(data)=>{
-   try {
-     const {first_name,last_name,email,password,adress,email1, id } = data;
-     const user= await User.findOne({$or:[{email:email1},{id:id}]});
-     
-    if (!user) {
-      return {
-        error: true,
-        message: "adresse mail ou id invalide",
-        statusCode: 401,
-      };
-    }
-
-    if(password)
-       password= await hashPassword(password);
-   const data= user.updateOne({first_name:first_name,last_name:last_name,email:email,password:password,adress:adress});
-
-    return {
-      error:false,
-      data:data,
-      statusCode:200
-    }
-     
-   } catch (error) {
-
-    return {
-      error:true,
-      message:error.message,
-      statusCode:400
-    }
-     
-   }
 }
 

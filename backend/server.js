@@ -19,6 +19,7 @@ app.use(logger);
 app.use('/auth', require('./src/routes/auth.routes'));
 app.use("/tasklist",require("./src/routes/listTask.routes"));
 app.use("/task",require("./src/routes/task.routes"));
+app.use("/user",require("./src/routes/user.route"));
 
 const PORT = process.env.API_PORT || 3000
 const HOST=process.env.HOST|| "localhost"

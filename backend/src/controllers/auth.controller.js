@@ -17,10 +17,3 @@ exports.refreshtoken=async (req,resp)=>{
     const result=await authService.refreshTocken(req.body);
     return resp.status(result.statusCode).json(result);
 }
-
-exports.getUser=async(req,resp)=>{
-
-  const result=await authService.getUser(req.header.email);
- return resp.status(result.statusCode).json(result);
-  
-}
