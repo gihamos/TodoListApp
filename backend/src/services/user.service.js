@@ -1,4 +1,4 @@
-
+const User = require("../models/user.model");
 exports.existUser= async(_id)=>{
   try {
     const isExists = await User.findOne( {_id});
@@ -22,9 +22,7 @@ exports.existUser= async(_id)=>{
 }
 exports.getUser= async(data)=>{
    try {
-     const { email} = data;
-     const user= await User.findOne({email:email});
-     
+     const user= await User.findOne({email:data.email});
     if (!user) {
       return {
         error: true,
@@ -35,7 +33,14 @@ exports.getUser= async(data)=>{
 
     return {
       error:false,
-      data:user,
+      data:{
+        id:user.id,
+        first_name:user.first_name,
+        last_name:user.last_name,
+        email:user.email,
+        adress:user.adress,
+        createdAT:user.createdAt
+      },
       statusCode:200
     }
      
@@ -43,6 +48,7 @@ exports.getUser= async(data)=>{
 
     return {
       error:true,
+      value:data,
       message:error.message,
       statusCode:400
     }
@@ -52,7 +58,7 @@ exports.getUser= async(data)=>{
 
 exports.UpdateUser= async(data)=>{
    try {
-     const {first_name,last_name,email,password,adress,email1,} = data;
+     const {first_name,last_name,email,password,adress,email1} = data;
      const user= await User.findOne({email:email1});
      
     if (!user) {
