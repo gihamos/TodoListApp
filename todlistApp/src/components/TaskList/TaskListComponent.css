@@ -1,0 +1,61 @@
+.task-list-component ol li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin-left:-50px;
+  margin-right: -2px;
+}
+
+.task-list-component ol li.done {
+  background: rgba(0, 255, 100, 0.15);
+  color: #0e110e;
+}
+li.done .task-label{
+   text-decoration: line-through;
+}
+
+.task-list-component ol li.non_done {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.task-list-component ol li:hover {
+  transform: translateX(3px);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.task-list-component input[type="checkbox"] {
+  transform: scale(1.3);
+  cursor: pointer;
+  position: relative;
+}
+input[type="text"]{
+width: 100%;
+height: 100%;
+border-radius: 5px;
+}
+
+.task-list-component .task-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 12px;
+}
+/* Bouton croix */
+.task-list-component .task_drop_button {
+  opacity: 0;
+  margin-right: 12px;
+  cursor: pointer;
+  color: #ff4d4d;
+  font-size: 18px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.task-list-component ol li:hover .task_drop_button {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
