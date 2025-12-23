@@ -30,13 +30,20 @@ const listSchema = new mongoose.Schema({
         default:false,
         required:false,
         description:"permet de determiner si la liste de taches est cloturé, true la liste de tache est cloturé "
-     }
-     
+     },
+     nb_task:{
+        type:Number,
+        default:0,
+        required:false,
+        description:"nombre de tache dans la liste"
+     },
 
 
 },{
     timestamps:true
 });
-const ListTask = mongoose.model('LiskTask', listSchema);
+const ListTask = mongoose.model('TaskList', listSchema);
+
+
 
 module.exports = ListTask;

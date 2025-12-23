@@ -5,7 +5,7 @@ import NavbarComponent from '../components/navBar/navbarComponent'
 function ProfilePage() {
   return (
     <>
-        <NavbarComponent id_profile="12345"/>
+        <NavbarComponent id_profile={localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).id : null}/>
         <main>
             <h2>Bienvenue sur votre page de profil</h2>
         </main>

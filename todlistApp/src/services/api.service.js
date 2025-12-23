@@ -93,7 +93,14 @@ export class ApiService {
     },
   };
 
-
+  user = {
+    getUser: async () => {
+      return await this.get("/user");
+    },
+    updateUser: async (data) => {
+      return await this.patch("/user", data);
+    }
+  };
 
   taskList = {
     create: async ({ label, description, expireAt }) => {
@@ -111,8 +118,10 @@ export class ApiService {
     getAllTaskList: async () => {
         return await this.get(`/tasklist`);
     },
-    update: async (id, { label, description, expireAt}) => {
-        return await this.patch(`/tasklist/${id}`, { label, description, expireAt});
+    update: async (id,data ) => {
+      const { label,  description, expireAt,closed}=data;
+      console.log(data);
+        return await this.patch(`/tasklist/${id}`, { label:label, closed, description:description, expireAt:expireAt});
     },
     delete: async (id) => {
         return await this.delete(`/tasklist/${id}`);

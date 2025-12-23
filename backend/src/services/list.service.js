@@ -1,7 +1,7 @@
 const ListTask=require("../models/list.model");
 const Task = require("../models/task.model");
 const User=require("../models/user.model");
-const { existUser } = require("./auth.service");
+const { existUser } = require("./user.service");
 
 exports.listTask={};
 
@@ -152,16 +152,24 @@ try {
 
 exports.listTask.update=async(data)=>{
 try {
-     const {id, label,description,expireAt,user_id}=data
+     const {id, label,description,expireAt,closed,user_id}=data;
+    
     const list= await ListTask.findOne({$and:[{user_id:user_id},{_id:id}]});
+    console.log(list);
     if(!list)
         return {
         error:false,
         message:"aucune liste de tache de l'utilisateur associé à cette identifiant a été trouvée ",
         statusCode: 400,
     };
+    value={};
+    if(label)value.label=label;
+    if(description)value.description=description;
+    if(expireAt)value.expireAt=expireAt;
+    if(closed!==undefined)value.closed=closed;
 
-   const newlist= await list.updateOne({label:label,description:description,expireAt:expireAt})
+   const newlist= await list.updateOne(value);
+   console.log(newlist);
     return {
          error:false,
          message:`la liste de tache (id: ${id}) a bien été modifie`,

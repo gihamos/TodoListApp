@@ -40,6 +40,7 @@ exports.listTaskController.deleleTask=async (req,resp)=>{
 }
 
 exports.listTaskController.updateTask=async (req,resp)=>{
+   console.log("test1");
     const data={id:req.params.id,...req.body,user_id:req.user.userId};
     const result =await listTask.update(data);
     return resp.status(result.statusCode).json(result);

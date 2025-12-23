@@ -55,39 +55,56 @@ exports.getUser= async(data)=>{
      
    }
 }
+exports.updateUser = async (value) => {
+  try {
+    const { first_name, last_name, email, password, adress, email1 } = value;
 
-exports.UpdateUser= async(data)=>{
-   try {
-     const {first_name,last_name,email,password,adress,email1} = data;
-     const user= await User.findOne({email:email1});
-     
+    const user = await User.findOne({ email: email1 });
+
     if (!user) {
       return {
         error: true,
-        message: "adresse mail ou id invalide",
+        message: "Adresse mail invalide",
         statusCode: 401,
       };
     }
 
-    if(password)
-       password= await hashPassword(password);
-   const data= user.updateOne({first_name:first_name,last_name:last_name,email:email,password:password,adress:adress});
+    const updateData = {};
 
+    if (first_name) updateData.first_name = first_name;
+    if (last_name) updateData.last_name = last_name;
+    if (email) updateData.email = email;
+    if (adress) updateData.adress = adress;
+
+    if (password) {
+      updateData.password = await hashPassword(password);
+    }
+
+    const updatedUser = await User.findOneAndUpdate(
+      { email: email1 },
+      { $set: updateData },
+      { new: true }
+    );
 
     return {
-      error:false,
-      data:data,
-      statusCode:200
-    }
-     
-   } catch (error) {
+      error: false,
+      data: {
+        id: updatedUser.id,
+        first_name: updatedUser.first_name,
+        last_name: updatedUser.last_name,
+        email: updatedUser.email,
+        adress: updatedUser.adress, 
+        createdAT: updatedUser.createdAt,
+      },
+      message: "Utilisateur mis à jour avec succès.",
+      statusCode: 200,
+    };
 
+  } catch (error) {
     return {
-      error:true,
-      message:error.message,
-      statusCode:400
-    }
-     
-   }
-}
-
+      error: true,
+      message: error.message,
+      statusCode: 400,
+    };
+  }
+};

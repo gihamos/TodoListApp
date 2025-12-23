@@ -15,6 +15,7 @@ exports.task.create=async (data)=>{
              return listVerify
 
          const task= await Task.create({...data});
+         await ListTask.findByIdAndUpdate(list_id, { $inc: { nb_task: +1 }});
 
          return {
             error:false,
@@ -71,6 +72,7 @@ try {
              statusCode:400
          };
         const newtask=  await task.updateOne({done:value});
+         await ListTask.findByIdAndUpdate(list_id, {updatedAt: new Date() });
         return {
             error:false,
             message:`tache ${parseInt(value)? "realisé" : "terminée"} `,
@@ -116,6 +118,7 @@ try {
              statusCode:400
          };
         const newtask=  await task.deleteOne();
+        await ListTask.findByIdAndUpdate(list_id, { $inc: { nb_task: -1 },updatedAt: new Date() });
         return {
             error:false,
             message:`tache supprimer`,

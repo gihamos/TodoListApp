@@ -1,0 +1,47 @@
+.toaskcomponent-container{
+    position: fixed;
+    top: 10%;
+    left: 20px;
+    flex-direction: column;
+    right: 0px;
+}
+.toaskcomponent {
+  position: fixed;
+  top: 15%;
+  left: 20px;
+  right: 0px;
+
+
+
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  max-height: 500px;
+  margin-right: 2%;
+  margin-left: 2%;
+  margin-top: 35px;
+
+
+  overflow-x: auto;
+  overflow-y: 300px;
+
+  padding-bottom: 10px;
+  z-index: 2000;
+}
+.toaskcomponent::-webkit-scrollbar {
+  height: 6px;
+}
+
+.toaskcomponent::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+
+.toast {
+  min-width: 300px; 
+  flex-shrink: 0;  
+  margin-right: 2%;
+margin-left: 2%;
+}
+

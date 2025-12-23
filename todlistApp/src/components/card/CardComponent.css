@@ -1,0 +1,98 @@
+.task-card {
+  background: #303030;
+  border-radius: 14px;
+  padding: 16px;
+  width: 100%;
+  max-width: 360px;
+
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Header */
+.task-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* Status */
+.task-status {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.task-status.active {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.task-status.expired {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.task-status.closed {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* Description */
+.task-description {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Infos */
+.task-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/* Actions */
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-edit {
+  background: #1976d2;
+  color: white;
+}
+
+.btn-edit:disabled {
+  background: #90caf9;
+  cursor: not-allowed;
+}
+
+.btn-close {
+  background: #d32f2f;
+  color: white;
+}
+
+/* Closed visual */
+.task-card.closed {
+  opacity: 0.8;
+}

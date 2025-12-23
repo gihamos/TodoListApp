@@ -43,8 +43,12 @@ const updatelistShema=Joi.object({
   .optional()
   .messages({
     "date.base": "La date d'expiration doit être une date valide"
-  })
+  }),
 
+  closed: Joi.boolean()
+  .messages({
+    "boolean.base": "Le statut de clôture doit être un booléen"
+  }),
 });
 
 

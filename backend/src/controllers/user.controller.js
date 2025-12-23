@@ -8,6 +8,6 @@ exports.getUser=async(req,resp)=>{
 }
 
 exports.updateUser=async(req,resp)=>{
-  const result=await userService.UpdateUser({...req.body,email1:req.user.email});
+  const result=await userService.updateUser({...req.body,email1:req.user.email});
    return resp.status(result.statusCode).json(result);
 }

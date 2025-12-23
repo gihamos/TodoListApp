@@ -138,7 +138,7 @@ const handle_addTask=(e)=>{
       <ol>
         {tasks.map(task => (
          <li className={task.done ? "done" : "non_done"} key={task._id}>
-             <span className="task_drop_button" title='cliquez pour supprimer' onClick={() => HandlerDropTask(task._id)}>X</span>
+             <span className="task_drop_button btn-close" title='cliquez pour supprimer' onClick={() => HandlerDropTask(task._id)}>X</span>
               <span className="task-label">{task.label}</span>
                   <input  type="checkbox"
                      onChange={(e) => HandlerChange(e, task._id) }

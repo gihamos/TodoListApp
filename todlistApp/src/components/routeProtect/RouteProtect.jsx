@@ -1,9 +1,8 @@
 import React from 'react'
+import { Navigate } from 'react-router-dom'
 
-function routeProtect({children }) {
-
-
-
+function RouteProtect({ children }) {
+ 
     if (!localStorage.getItem("token")) {
         return <Navigate to="/signin" replace />;
     }
@@ -12,4 +11,4 @@ function routeProtect({children }) {
   )
 }
 
-export default routeProtect
+export default RouteProtect

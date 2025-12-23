@@ -1,4 +1,4 @@
-import {React,useState} from "react";
+import {React} from "react";
 import { NavLink,useNavigate } from "react-router-dom";
 import "./navbarComponent.css";
 
@@ -20,6 +20,7 @@ const NavbarComponent = ({ id_profile }) => {
   return (
     <nav className="navbar">
       <NavLinkComponent className="nav-link" to="/">Accueil</NavLinkComponent>
+      <NavLinkComponent className="nav-link" to={`/Task`}>Creer une tache</NavLinkComponent>
 
       <div
         className="profile-menu"
