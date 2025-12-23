@@ -1,3 +1,5 @@
+import { Navigate } from "react-router-dom";
+
 export class ApiService {
   constructor(baseUrl, accessToken) {
     this.baseUrl = baseUrl;
@@ -40,6 +42,8 @@ export class ApiService {
     if ([401, 403].includes(retValue.statusCode)) {
       this.accessToken = "";
       localStorage.removeItem("token");
+      Navigate("/signin", { replace: true });
+      window.location.reload();
     }
 
     return retValue;
@@ -60,6 +64,7 @@ export class ApiService {
     if ([401, 403].includes(retValue.statusCode)) {
       this.accessToken = "";
       localStorage.removeItem("token");
+
     }
 
     return retValue;

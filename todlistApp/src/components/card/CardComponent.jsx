@@ -3,7 +3,7 @@ import "./CardComponent.css"
 import { apiService } from '../../main';
 import { useNavigate } from "react-router-dom";
 
-function CardComponent({ task, onEdit, onClose }) {
+function CardComponent({ task, onEdit }) {
   const navigate = useNavigate();
   if (!task) return null;
 
@@ -60,12 +60,11 @@ const handleDelete=(taskId)=>{
         </span>
       </div>
 
-      {/* Description */}
+      
       <p className="task-description">
         {task.description || "Aucune description"}
       </p>
 
-      {/* Infos */}
       <div className="task-info">
         <span>Créée : {new Date(task.createdAt).toLocaleDateString()}</span>
 
@@ -91,13 +90,8 @@ const handleDelete=(taskId)=>{
 
         <button
           className="btn btn-close"
-          onClick={() =>{ 
-            if(!task.closed){
-             onClose?.(task._id);
-            }else{
-               handleClose(task._id, true);
-            }
-          }}
+          onClick={() => handleClose(task._id, task.closed)}     
+          
         >
           {task.closed ? "Rouvrir" : "Clôturer"}
         </button>

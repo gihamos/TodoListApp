@@ -6,6 +6,7 @@ import ProfilePage from './pages/ProfilePage.jsx'
 import SignUp from './pages/SignUpPage.jsx'
 import RouteProtect from './components/routeProtect/RouteProtect.jsx'
 import CreateTaskForm from './pages/CreateTaskForm.jsx'
+import LogoutComponent from './components/logout/LogoutComponent.jsx'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
    <Route path="/" element={<Navigate to="/home" replace />} />
    <Route path="/signin" element={<SignIn />} />
    <Route path="/signup" element={<SignUp />} />
+    <Route path="/logout" element={<LogoutComponent/>} />
    <Route path="/home" element={<RouteProtect><HomePage /></RouteProtect>} />
    <Route path="/Task/" element={<RouteProtect><CreateTaskForm /></RouteProtect>} />
    <Route path="/profile/:id" element={<RouteProtect><ProfilePage /></RouteProtect>} />

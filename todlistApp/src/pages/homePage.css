@@ -1,10 +1,31 @@
 .welcome-message{
  top:5%;
  left:5px;
- position: fixed;
+ position:fixed;
 }
+.TaskContainer{
+    top: 20%;
+    position:absolute;
+    border: 3px solid black ;
+    border-radius: 10px;
+    background-color: rgb(38, 41, 44);
+    margin: 10px;
+}
+.last_task {
+    
+   border: 3px solid rgb(52, 48, 48) ;
+ border-radius: 10px;
+ background-color: rgb(44, 28, 19);
+   margin-bottom: 20px;
+}
+.task-list-completed {
+     border: 3px solid black ;
+ border-radius: 10px;
+ background-color: rgb(18, 75, 132);
+  margin-top: 15px;
 
-
-
-
-
+}
+.task-list-non-completed{
+     margin-top: 15px;
+      margin-bottom: 30px;
+}

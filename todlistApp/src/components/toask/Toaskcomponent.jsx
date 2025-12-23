@@ -1,9 +1,9 @@
 import React, { Children } from 'react'
 import "./Toaskcomponent.css"
 
-function Toaskcomponent({title, children }) {
+function Toaskcomponent({ title, keys, children }) {
   return (
-    <div className="toaskcomponent-container">
+    <div className="toaskcomponent-container" key={keys}>
         <h3 className="toaskcomponent-title">{title}</h3>
     <div className="toaskcomponent">
       {Children.map(children, (child, index) => (

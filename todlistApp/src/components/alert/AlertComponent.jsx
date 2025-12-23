@@ -1,7 +1,7 @@
 // Modal.jsx
 import React, { useState } from "react";
 
-const AlertComponent = ({ children, onClose }) => {
+const AlertComponent = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   if (!isOpen) return null;
@@ -10,7 +10,7 @@ const AlertComponent = ({ children, onClose }) => {
     <div style={overlayStyle}>
       <div style={modalStyle}>
         {children}
-        <button style={buttonStyle} onClick={() => setIsOpen(true)}>
+        <button style={buttonStyle} onClick={() => setIsOpen(false)}>
           Fermer
         </button>
       </div>

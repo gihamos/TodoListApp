@@ -1,5 +1,5 @@
 import {React} from "react";
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import "./navbarComponent.css";
 
 const NavLinkComponent = ({ className, to, children }) => (
@@ -10,14 +10,9 @@ const NavLinkComponent = ({ className, to, children }) => (
 
 
 const NavbarComponent = ({ id_profile }) => {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    console.log("Déconnecté");
-    navigate("/login");
-  };
 
   return (
+    <header>
     <nav className="navbar">
       <NavLinkComponent className="nav-link" to="/">Accueil</NavLinkComponent>
       <NavLinkComponent className="nav-link" to={`/Task`}>Creer une tache</NavLinkComponent>
@@ -30,12 +25,15 @@ const NavbarComponent = ({ id_profile }) => {
         </NavLinkComponent>
           <ul className="dropdown">
             <li>
-              <NavLink to={`/profile/${id_profile}/edit`}>Éditer</NavLink>
+              <NavLink to={`/profile/edit`}>Éditer</NavLink>
             </li>
-            <li onClick={handleLogout}>Déconnecter</li>
+            <li >
+              <NavLink to={"/logout"}>  Déconnecter</NavLink>
+              </li>
           </ul>
       </div>
     </nav>
+    </header>
   );
 };
 

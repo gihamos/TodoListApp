@@ -48,6 +48,7 @@ function EditTaskComponent({ task,onCancel}) {
         console.log(error);
         navigate("/home", { replace: true });
       });
+      window.location.reload();
      
   }
 
