@@ -10,6 +10,11 @@ function HomePage() {
    const [userData, setUserData] = React.useState(null);
    const[listTask,setListTask]=React.useState(null);
    const [selectedTask, setSelectedTask] = React.useState(null);
+   const [lastListTask,setLastListTask]=React.useState([]);
+   const [runListTask,setRunListTask]=React.useState([]);
+   const [closeListTask,setCloseListTask]=React.useState([]);
+
+   
    React.useEffect(() => {
   if (listTask && listTask.length > 0) {
     setSelectedTask(null);
@@ -29,6 +34,25 @@ function HomePage() {
         apiService.taskList.getAllTaskList().then((response)=>{
            if (!response.error) {
             setListTask(response.data);
+            setLastListTask(
+              Array.from(response.data)
+               .filter((task) => (!task.closed)&&(new Date(task.updatedAt)))
+              .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+               .slice(0, 4)
+             );
+             setRunListTask(
+               Array.from(response.data)
+                  .filter((task) => !task.closed)
+                  .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+                  .slice(4, response.data.length-1)
+             );
+
+             setCloseListTask(
+                 Array.from(response.data)
+                  .filter((task) => task.closed)
+                  .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+
+                );
            }
         }).catch((error)=>{
           console.log(error.message);
@@ -55,17 +79,13 @@ function HomePage() {
       <>  
           
           <h2 className="welcome-message">Bienvenue ,hereux de vous revoir {userData.first_name} </h2>
-         <div className='TaskContainer'>
+           { (listTask!=null&&listTask.length>0 )?(<div className='TaskContainer'>
           <div className="last_task">
           <Toaskcomponent  keys="encours" title="Liste des taches modifiées recement  ">
            
-            {listTask? (Array.from(listTask)
-            .filter((task) => !task.closed)
-            .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-            .slice(0, 4)
-            .map((task) => {
+            {lastListTask.length>0 ? (lastListTask.map((task) => {
               return (<CardComponent key={task._id} task={task} onEdit={() => setSelectedTask(task)} />);
-            })):(<p>Aucune liste de tache trouvée</p>)}
+            })):(<p>Aucune tache recente trouvée</p>)}
  
           </Toaskcomponent>
           </div>
@@ -73,29 +93,27 @@ function HomePage() {
           <div className="task-list-non-completed">
           <Toaskcomponent title="Liste des taches en cours"   keys="enfin">
  
-             {listTask? (Array.from(listTask)
-            .filter((task) => !task.closed)
-            .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-            .slice(4, listTask.length-1)
-            .map((task) => {
+             {runListTask.length>0 ? (runListTask.map((task) => {
             return (<CardComponent key={task._id} task={task} onEdit={() => setSelectedTask(task)} />);
-              })):(<p>Aucune liste de tache trouvée</p>)}
+              })):(<p>Aucune Tache  tache en cours trouvée</p>)}
           </Toaskcomponent>
           </div>
             
           <div className="task-list-completed">
           <Toaskcomponent title="Liste des taches terminées"   keys="enfin">
  
-             {listTask? (Array.from(listTask)
-            .filter((task) => task.closed)
-            .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-            .map((task) => {
+             {closeListTask.length>0? (closeListTask.map((task) => {
             return (<CardComponent key={task._id} task={task} onEdit={() => setSelectedTask(task)} />);
-              })):(<p>Aucune liste de tache trouvée</p>)}
+              })):(<p>vous n'avez terminer aucune tache</p>)}
           </Toaskcomponent>
           </div>
 
-          </div>
+          </div>):(<p>
+              vous ne possedez pas de tache actuellement, veuillez créér une tache
+
+
+          </p>)
+            }
 
           {selectedTask && (
     

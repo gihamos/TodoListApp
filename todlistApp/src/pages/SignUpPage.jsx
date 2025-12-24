@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { apiService } from "../main";
+import "./SignUpPage.css"
 
 function SignUp() {
   const navigate = useNavigate();
@@ -30,106 +31,88 @@ function SignUp() {
       });
   };
 
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-950">
-      <div className="w-full max-w-md rounded-xl bg-slate-900 p-8 shadow-lg shadow-slate-900/70">
-        <h1 className="mb-6 text-center text-2xl font-semibold text-slate-50">
-          Inscription
-        </h1>
-        {error && (
-          <p className="mb-4 rounded-md bg-red-500/10 px-3 py-2 text-sm text-red-400">
-            {error}
-          </p>
-        )}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-             <label
-              className="mb-1 block text-sm text-slate-300"
-              htmlFor="first_name">First name</label>
+ return (
+    <div className="signup-page">
+      <div className="signup-container">
+        <h1>Inscription</h1>
+
+        {error && <p className="error-message">{error}</p>}
+
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
             <input
+              type="text"
               id="first_name"
               name="first_name"
-              type="text"
-              required
               value={form.first_name}
               onChange={handleChange}
-              className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-50 outline-none ring-blue-500/0 transition focus:ring-2"
+              required
+              className={form.first_name ? "has-value" : ""}
             />
-            <label
-              className="mb-1 block text-sm text-slate-300"
-              htmlFor="last_name">Last name</label>
+            <label htmlFor="first_name">Prénom</label>
+          </div>
+
+          <div className="input-group">
             <input
+              type="text"
               id="last_name"
               name="last_name"
-              type="text"
-              required
               value={form.last_name}
               onChange={handleChange}
-              className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-50 outline-none ring-blue-500/0 transition focus:ring-2"
+              required
+              className={form.last_name ? "has-value" : ""}
             />
-            <label
-              className="mb-1 block text-sm text-slate-300"
-              htmlFor="adresse">Adresse</label>
+            <label htmlFor="last_name">Nom</label>
+          </div>
+
+          <div className="input-group">
             <input
-              id="adresse"
-              name="adresse" 
               type="text"
+              id="adresse"
+              name="adresse"
               value={form.adresse}
               onChange={handleChange}
-              className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-50 outline-none ring-blue-500/0 transition focus:ring-2"
+              className={form.adresse ? "has-value" : ""}
             />
-            <label
-              className="mb-1 block text-sm text-slate-300"
-              htmlFor="email"
-            >
-              Email
-            </label>
+            <label htmlFor="adresse">Adresse</label>
+          </div>
+
+          <div className="input-group">
             <input
+              type="email"
               id="email"
               name="email"
-              type="email"
-              required
               value={form.email}
               onChange={handleChange}
-              className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-50 outline-none ring-blue-500/0 transition focus:ring-2"
+              required
+              className={form.email ? "has-value" : ""}
             />
+            <label htmlFor="email">Email</label>
           </div>
-          <div>
-            <label
-              className="mb-1 block text-sm text-slate-300"
-              htmlFor="password"
-            >
-              Mot de passe
-            </label>
+
+          <div className="input-group">
             <input
+              type="password"
               id="password"
               name="password"
-              type="password"
-              required
               value={form.password}
               onChange={handleChange}
-              className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-50 outline-none ring-blue-500/0 transition focus:ring-2"
+              required
+              className={form.password ? "has-value" : ""}
             />
+            <label htmlFor="password">Mot de passe</label>
           </div>
-          <button
-            type="submit"
-            className="mt-2 w-full rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm shadow-emerald-900/40 transition hover:bg-emerald-500"
-          >
+
+          <button type="submit" className="signup-button">
             Créer un compte
           </button>
         </form>
-        <p className="mt-4 text-center text-xs text-slate-400">
-          Déjà un compte ?{" "}
-          <Link
-            to="/signin"
-            className="font-medium text-blue-400 hover:text-blue-300"
-          >
-            Se connecter
-          </Link>
+
+        <p className="login-text">
+          Déjà un compte ? <Link to="/signin">Se connecter</Link>
         </p>
       </div>
     </div>
   );
 }
-
 export default SignUp;

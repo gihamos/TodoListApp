@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom'
 
 function LogoutComponent() {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
   return (
     <Navigate to={"/sigin"} replace={true}/>
   )
