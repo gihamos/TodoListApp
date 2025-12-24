@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { apiService } from "../main";
 import { useNavigate } from "react-router-dom";
 import NavbarComponent from "../components/navBar/navbarComponent";
+import "./CreateTaskForm.css"
 
 const CreateTaskForm = () => {
   const [label, setLabel] = useState("");
@@ -31,81 +32,50 @@ const CreateTaskForm = () => {
 
   return (
     <>
-    <NavbarComponent id_profile={localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).id : null}/>
-    <form onSubmit={handleSubmit} style={formStyle}>
-      <h2>Créer une tâche</h2>
+      <NavbarComponent
+        id_profile={
+          localStorage.getItem("user")
+            ? JSON.parse(localStorage.getItem("user")).id
+            : null
+        }
+      />
 
-      <label>
-        Titre :
-        <input
-          type="text"
-          value={label}
-          onChange={(e) => setLabel(e.target.value)}
-          required
-          style={inputStyle}
-        />
-      </label>
+      <div className="task-page">
+        <form onSubmit={handleSubmit} className="task-form">
+          <h2>Créer une tâche</h2>
 
-      <label>
-        Description :
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          style={textareaStyle}
-        />
-      </label>
+          <label>
+            Titre
+            <input
+              type="text"
+              value={label}
+              onChange={(e) => setLabel(e.target.value)}
+              required
+            />
+          </label>
 
-      <label>
-        Date d’échéance :
-        <input
-          type="date"
-          value={expireAt}
-          onChange={(e) => setExpireAt(e.target.value)}
-          style={inputStyle}
-        />
-      </label>
+          <label>
+            Description
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </label>
 
-      <button type="submit" style={buttonStyle}>
-        Créer
-      </button>
-    </form>
+          <label>
+            Date d’échéance
+            <input
+              type="date"
+              value={expireAt}
+              onChange={(e) => setExpireAt(e.target.value)}
+            />
+          </label>
+
+          <button type="submit">Créer</button>
+        </form>
+      </div>
     </>
   );
-};
-
-
-const formStyle = {
-  display: "flex",
-  flexDirection: "column",
-  gap: "12px",
-  padding: "20px",
-  border: "1px solid #ddd",
-  borderRadius: "8px",
-  maxWidth: "400px",
-};
-
-const inputStyle = {
-  padding: "8px",
-  borderRadius: "4px",
-  border: "1px solid #ccc",
-  width: "100%",
-};
-
-const textareaStyle = {
-  padding: "8px",
-  borderRadius: "4px",
-  border: "1px solid #ccc",
-  width: "100%",
-  minHeight: "60px",
-};
-
-const buttonStyle = {
-  padding: "10px 15px",
-  borderRadius: "5px",
-  border: "none",
-  backgroundColor: "#007bff",
-  color: "white",
-  cursor: "pointer",
 };
 
 export default CreateTaskForm;

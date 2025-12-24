@@ -3,7 +3,7 @@ import "./TaskListComponent.css";
 import { apiService } from '../../main';
 
 
-function TaskListComponent( {listTask_id} ) {
+function TaskListComponent( {listTask_id,onCancel} ) {
   const [tasks, setTasks] = useState([]);
   const [listTask, setListTask] = useState(null);
   const [error, setError] = useState("");
@@ -117,6 +117,7 @@ const handle_addTask=(e)=>{
   }
 
   return (
+    <>
     <div className="task-list-component" style={{
       width: '300px',
       height: '500px',
@@ -127,6 +128,7 @@ const handle_addTask=(e)=>{
       padding: '20px',
       border: '1px solid rgba(255,255,255,0.3)',
       boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+
     }}>
       {loading ? (
       <h2>Chargement...</h2>
@@ -150,7 +152,12 @@ const handle_addTask=(e)=>{
         <li><input type="text"  onKeyDown={(e) => {if (e.key === 'Enter') handle_addTask(e);}} placeholder="Ajouter une tâche" /></li>
 
           </ol>
+
+          
     </div>
+               <input type='button'  title='appuyer pour fermer' value={"fermer"} className='closebt' onClick={()=>onCancel() }/>
+   
+    </>
   );
 }
 

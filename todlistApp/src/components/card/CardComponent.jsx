@@ -3,7 +3,7 @@ import "./CardComponent.css"
 import { apiService } from '../../main';
 import { useNavigate } from "react-router-dom";
 
-function CardComponent({ task, onEdit }) {
+function CardComponent({ task, onEdit,onRun }) {
   const navigate = useNavigate();
   if (!task) return null;
 
@@ -45,9 +45,10 @@ const handleDelete=(taskId)=>{
     task.expireAt && new Date(task.expireAt) < new Date() && !task.closed
 
   return (
-    <div className={`task-card ${task.closed ? "closed" : ""}`}>
+    <div className={`task-card ${task.closed ? "closed" : ""}`}  title="double clic pour voir les taches">
       
-      {/* Header */}
+     
+      
       <div className="task-card-header">
         <h3 className="task-title">{task.label}</h3>
 
@@ -87,6 +88,12 @@ const handleDelete=(taskId)=>{
         >
           Modifier
         </button>
+        <button
+        className="btn btn-edit"
+           onClick={() => onRun?.(task)}
+           >
+           voir taches
+            </button>
 
         <button
           className="btn btn-close"

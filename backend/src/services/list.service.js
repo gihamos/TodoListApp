@@ -169,7 +169,6 @@ try {
     if(closed!==undefined)value.closed=closed;
 
    const newlist= await list.updateOne(value);
-   console.log(newlist);
     return {
          error:false,
          message:`la liste de tache (id: ${id}) a bien été modifie`,

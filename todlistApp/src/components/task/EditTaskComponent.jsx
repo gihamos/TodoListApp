@@ -53,8 +53,8 @@ function EditTaskComponent({ task,onCancel}) {
   }
 
   return (
-    <div className="edit-task-overlay">
-      <form className="edit-task-form" onSubmit={handleSubmit}>
+    <div className="edit-task-overlay" >
+      <form className="edit-task-form" onSubmit={handleSubmit}  >
         <h3>Modifier la tâche</h3>
 
         {/* Label */}

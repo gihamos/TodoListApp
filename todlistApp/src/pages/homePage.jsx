@@ -5,11 +5,13 @@ import "./homePage.css"
 import Toaskcomponent from '../components/toask/Toaskcomponent';
 import CardComponent from '../components/card/CardComponent';
 import EditTaskComponent from '../components/task/EditTaskComponent';
+import TaskListComponent from '../components/TaskList/TaskListComponent';
 
 function HomePage() {
    const [userData, setUserData] = React.useState(null);
    const[listTask,setListTask]=React.useState(null);
    const [selectedTask, setSelectedTask] = React.useState(null);
+    const [seeTask, setSeeTask] = React.useState(null);
    const [lastListTask,setLastListTask]=React.useState([]);
    const [runListTask,setRunListTask]=React.useState([]);
    const [closeListTask,setCloseListTask]=React.useState([]);
@@ -34,17 +36,21 @@ function HomePage() {
         apiService.taskList.getAllTaskList().then((response)=>{
            if (!response.error) {
             setListTask(response.data);
+            const list= Array.from(response.data)
+                .filter((task) => (!task.closed)&&(new Date(task.updatedAt)>=(new Date(new Date().getTime() - 5 * 24 * 60 * 60 * 1000))))
+                .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+                .slice(0, 4)
             setLastListTask(
-              Array.from(response.data)
-               .filter((task) => (!task.closed)&&(new Date(task.updatedAt)))
-              .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-               .slice(0, 4)
+             
+             
+                  list
+             
              );
              setRunListTask(
                Array.from(response.data)
                   .filter((task) => !task.closed)
                   .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-                  .slice(4, response.data.length-1)
+                  .slice(list.length, response.data.length-1)
              );
 
              setCloseListTask(
@@ -103,7 +109,7 @@ function HomePage() {
           <Toaskcomponent title="Liste des taches terminées"   keys="enfin">
  
              {closeListTask.length>0? (closeListTask.map((task) => {
-            return (<CardComponent key={task._id} task={task} onEdit={() => setSelectedTask(task)} />);
+            return (<CardComponent key={task._id} task={task} onEdit={() => setSelectedTask(task)} onRun={()=> setSeeTask(task._id)} />);
               })):(<p>vous n'avez terminer aucune tache</p>)}
           </Toaskcomponent>
           </div>
@@ -116,13 +122,26 @@ function HomePage() {
             }
 
           {selectedTask && (
-    
+          <>
           <EditTaskComponent
             task={selectedTask}
             onCancel={() => setSelectedTask(null)}
+
           />
-          )}
           
+          </>
+           
+
+          )}
+           {
+           console.log(seeTask)
+}
+
+
+
+
+
+
       
          </>
         

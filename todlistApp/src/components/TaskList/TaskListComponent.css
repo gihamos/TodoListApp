@@ -45,7 +45,7 @@ border-radius: 5px;
   white-space: nowrap;
   margin-right: 12px;
 }
-/* Bouton croix */
+
 .task-list-component .task_drop_button {
   opacity: 0;
   margin-right: 12px;
@@ -58,4 +58,11 @@ border-radius: 5px;
   opacity: 1;
   transform: scale(1.1);
 }
-
+.closebt{
+  display:block;
+  width: 250px;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 10px;
+ 
+}
