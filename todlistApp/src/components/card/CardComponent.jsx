@@ -90,7 +90,7 @@ const handleDelete=(taskId)=>{
         </button>
         <button
         className="btn btn-edit"
-           onClick={() => onRun?.(task)}
+           onClick={() => onRun?.(task._id)}
            >
            voir taches
             </button>

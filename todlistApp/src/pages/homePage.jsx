@@ -90,7 +90,7 @@ function HomePage() {
           <Toaskcomponent  keys="encours" title="Liste des taches modifiées recement  ">
            
             {lastListTask.length>0 ? (lastListTask.map((task) => {
-              return (<CardComponent key={task._id} task={task} onEdit={() => setSelectedTask(task)} />);
+              return (<CardComponent key={task._id} task={task} onEdit={() => setSelectedTask(task)} onRun={()=> setSeeTask(task)} />);
             })):(<p>Aucune tache recente trouvée</p>)}
  
           </Toaskcomponent>
@@ -100,7 +100,7 @@ function HomePage() {
           <Toaskcomponent title="Liste des taches en cours"   keys="enfin">
  
              {runListTask.length>0 ? (runListTask.map((task) => {
-            return (<CardComponent key={task._id} task={task} onEdit={() => setSelectedTask(task)} />);
+            return (<CardComponent key={task._id} task={task} onEdit={() => setSelectedTask(task)} onRun={()=> setSeeTask(task)} />);
               })):(<p>Aucune Tache  tache en cours trouvée</p>)}
           </Toaskcomponent>
           </div>
@@ -109,7 +109,7 @@ function HomePage() {
           <Toaskcomponent title="Liste des taches terminées"   keys="enfin">
  
              {closeListTask.length>0? (closeListTask.map((task) => {
-            return (<CardComponent key={task._id} task={task} onEdit={() => setSelectedTask(task)} onRun={()=> setSeeTask(task._id)} />);
+            return (<CardComponent key={task._id} task={task} onEdit={() => setSelectedTask(task)} onRun={()=> setSeeTask(task)} />);
               })):(<p>vous n'avez terminer aucune tache</p>)}
           </Toaskcomponent>
           </div>
@@ -134,14 +134,13 @@ function HomePage() {
 
           )}
            {
-           console.log(seeTask)
-}
-
-
-
-
-
-
+           seeTask && (
+            <TaskListComponent
+            taski={seeTask}
+            onCancel={() => setSeeTask(null)}
+            />
+          
+            )}
       
          </>
         

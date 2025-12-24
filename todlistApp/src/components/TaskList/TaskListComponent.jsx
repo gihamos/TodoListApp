@@ -3,7 +3,8 @@ import "./TaskListComponent.css";
 import { apiService } from '../../main';
 
 
-function TaskListComponent( {listTask_id,onCancel} ) {
+function TaskListComponent( {taski,onCancel} ) {
+  const listTask_id=taski?._id;
   const [tasks, setTasks] = useState([]);
   const [listTask, setListTask] = useState(null);
   const [error, setError] = useState("");
@@ -115,50 +116,55 @@ const handle_addTask=(e)=>{
   if (error) {
     return <div className="error">{error}</div>;
   }
-
-  return (
-    <>
-    <div className="task-list-component" style={{
-      width: '300px',
-      height: '500px',
-      overflowY: 'auto',
-      backdropFilter: 'blur(10px)',
-      background: 'rgba(70, 55, 55, 0.4)',
-      borderRadius: '16px',
-      padding: '20px',
-      border: '1px solid rgba(255,255,255,0.3)',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-
-    }}>
+return (
+  <div className="task-overlay">
+    <div className="task-card">
       {loading ? (
-      <h2>Chargement...</h2>
-                      ) : (
+        <h2>Chargement...</h2>
+      ) : (
         <h2>{listTask?.label}</h2>
-        )}
-
+      )}
 
       <ol>
         {tasks.map(task => (
-         <li className={task.done ? "done" : "non_done"} key={task._id}>
-             <span className="task_drop_button btn-close" title='cliquez pour supprimer' onClick={() => HandlerDropTask(task._id)}>X</span>
-              <span className="task-label">{task.label}</span>
-                  <input  type="checkbox"
-                     onChange={(e) => HandlerChange(e, task._id) }
-                     checked={task.done}
-                     title={`${task.done ? "décochez pour marquer comme non fait" : "cochez pour marquer comme fait"}`}
-                    />
-                   </li>
+          <li className={task.done ? "done" : ""} key={task._id}>
+            <span
+              className="task_drop_button"
+              title="Supprimer"
+              onClick={() => HandlerDropTask(task._id)}
+            >
+              ✕
+            </span>
+
+            <span className="task-label">{task.label}</span>
+
+            <input
+              type="checkbox"
+               disabled={taski?.closed}
+              checked={task.done}
+              onChange={(e) => HandlerChange(e, task._id)}
+            />
+          </li>
         ))}
-        <li><input type="text"  onKeyDown={(e) => {if (e.key === 'Enter') handle_addTask(e);}} placeholder="Ajouter une tâche" /></li>
 
-          </ol>
+        <li>
+          <input
+            type="text"
+            placeholder="Ajouter une tâche"
+            disabled={taski?.closed}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handle_addTask(e);
 
-          
+            }}
+          />
+        </li>
+      </ol>
+
+      <button className="closebt" onClick={onCancel}>
+        Fermer
+      </button>
     </div>
-               <input type='button'  title='appuyer pour fermer' value={"fermer"} className='closebt' onClick={()=>onCancel() }/>
-   
-    </>
-  );
+  </div>
+);
 }
-
-export default TaskListComponent;
+export default  TaskListComponent;
