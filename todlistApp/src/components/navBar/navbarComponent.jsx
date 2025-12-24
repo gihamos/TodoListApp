@@ -9,7 +9,7 @@ const NavLinkComponent = ({ className, to, children }) => (
 );
 
 
-const NavbarComponent = ({ id_profile }) => {
+const NavbarComponent = () => {
 
   return (
     <header>
@@ -20,7 +20,7 @@ const NavbarComponent = ({ id_profile }) => {
       <div
         className="profile-menu"
       >
-        <NavLinkComponent className="nav-link" to={`/profile/${id_profile}`}>
+        <NavLinkComponent className="nav-link" >
           Profil
         </NavLinkComponent>
           <ul className="dropdown">

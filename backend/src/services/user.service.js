@@ -1,4 +1,5 @@
 const User = require("../models/user.model");
+const { hashPassword, comparePassword } = require("../utils/password.utils");
 exports.existUser= async(_id)=>{
   try {
     const isExists = await User.findOne( {_id});
@@ -57,7 +58,7 @@ exports.getUser= async(data)=>{
 }
 exports.updateUser = async (value) => {
   try {
-    const { first_name, last_name, email, password, adress, email1 } = value;
+    const { first_name, last_name, email, password, adresse, email1 } = value;
 
     const user = await User.findOne({ email: email1 });
 
@@ -74,7 +75,7 @@ exports.updateUser = async (value) => {
     if (first_name) updateData.first_name = first_name;
     if (last_name) updateData.last_name = last_name;
     if (email) updateData.email = email;
-    if (adress) updateData.adress = adress;
+    if (adresse) updateData.adress = adresse;
 
     if (password) {
       updateData.password = await hashPassword(password);
